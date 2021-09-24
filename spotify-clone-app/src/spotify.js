@@ -1,7 +1,7 @@
 // https://developer.spotify.com/documentation/web-playback-sdk/quick-start/#
 export const authEndpoint = "https://accounts.spotify.com/authorize";
 
-// Replace with your app's client ID, redirect URI and desired scopes
+// My app's client ID, redirect URI and desired scopes
 const clientId = "535f8a4410264ac18a8953e15af6d234";
 const redirectUri = "http://localhost:3000/";
 const scopes = [
@@ -11,6 +11,18 @@ const scopes = [
     "user-top-read",
     "user-modify-playback-state",
 ];
+
+export const getTokenFromResponse = () => {
+    return window.location.hash
+      .substring(1)
+      .split("&")
+      .reduce((initial, item) => {
+        var parts = item.split("=");
+        initial[parts[0]] = decodeURIComponent(parts[1]);
+  
+        return initial;
+    }, {});
+};
 
 export const accessUrl = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
     "%20"
