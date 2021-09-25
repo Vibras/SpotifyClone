@@ -37,8 +37,6 @@ function App() {
     }
   }, [token, dispatch]);
 
-  console.log("User", user);
-  console.log("token", token);
 
   return (
     // BEM
@@ -46,7 +44,7 @@ function App() {
     
       {
         token ? (
-          <Player />
+          <Player spotify={spotify} />
         ) : (
           <Login />
         )
