@@ -10,8 +10,7 @@ const spotify = new SpotifyWebApi();
 
 function App() {
   
-  const [{ token }, setToken] = useStateValue(null);
-  const [{ user }, dispatch] = useStateValue();
+  const [{ token }, dispatch] = useStateValue();
 
   // Runs code based on a given condition
   useEffect(() => {
@@ -26,6 +25,25 @@ function App() {
       dispatch({
         type: "SET_TOKEN",
         token: _token,
+      });
+      
+      spotify.getPlaylist("37i9dQZEVXcU5wDYgBuElL").then((response) =>
+        dispatch({
+          type: "SET_DISCOVER_WEEKLY",
+          discover_weekly: response,
+        })
+      );
+      
+      spotify.getMyTopArtists().then((response) =>
+        dispatch({
+          type: "SET_TOP_ARTISTS",
+          top_artists: response,
+        })
+      );
+      
+      dispatch({
+        type: "SET_SPOTIFY",
+        spotify: spotify,
       });
 
       spotify.getMe().then((user) => {
@@ -44,7 +62,6 @@ function App() {
     }
   }, [token, dispatch]);
 
-
   return (
     // BEM
     <div className="app">
@@ -56,8 +73,7 @@ function App() {
           <Login />
         )
       }
-    
-    {/* <Login /> */}
+
     </div>
   );
 }

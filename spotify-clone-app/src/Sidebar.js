@@ -5,6 +5,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import SearchIcon from "@material-ui/icons/Search";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
 import { useStateValue } from "./StateProvider";
+import { getTokenFromResponse } from "./spotify";
 
 function Sidebar() {
     const [{ playlists }, dispatch] = useStateValue();
